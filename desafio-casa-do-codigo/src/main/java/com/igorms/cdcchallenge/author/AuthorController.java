@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @RestController
 public class AuthorController {
 
-    private EntityManager entityManager;
-    @PostMapping
+    private final EntityManager entityManager;
+
+    public AuthorController(EntityManager manager) {
+        super();
+        this.entityManager = manager;
+    }
+    @PostMapping("/author")
     @Transactional
-    public void create(@RequestBody NewAuthorRequest newAuthorRequest){
+    public void create(@Valid @RequestBody NewAuthorRequest newAuthorRequest){
         entityManager.persist(new Author(newAuthorRequest.name, newAuthorRequest.email, newAuthorRequest.description));
     }
 }
