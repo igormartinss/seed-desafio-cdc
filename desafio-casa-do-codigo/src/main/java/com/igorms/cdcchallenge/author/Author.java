@@ -16,11 +16,15 @@ public class Author {
     public Author() {
     }
 
-    public Author (String name, String email, String description) {
+    public Author(String name, String email, String description) {
         this.description = description;
         this.email = email;
         this.name = name;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public static Author fromRequest(NewAuthorRequest newAuthorRequest) {
+        return new Author(newAuthorRequest.name, newAuthorRequest.email, newAuthorRequest.description);
     }
 
     @Id

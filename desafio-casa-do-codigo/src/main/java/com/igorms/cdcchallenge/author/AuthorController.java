@@ -20,7 +20,7 @@ public class AuthorController {
     @PostMapping("/author")
     @Transactional
     public void create(@Valid @RequestBody NewAuthorRequest newAuthorRequest){
-        entityManager.persist(new Author(newAuthorRequest.name, newAuthorRequest.email, newAuthorRequest.description));
+        entityManager.persist(Author.fromRequest(newAuthorRequest));
     }
 }
 
