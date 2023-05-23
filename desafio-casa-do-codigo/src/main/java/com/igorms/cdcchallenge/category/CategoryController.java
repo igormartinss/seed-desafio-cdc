@@ -1,27 +1,34 @@
 package com.igorms.cdcchallenge.category;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-@RestController("/categories")
+@RestController
 public class CategoryController {
 
     @PersistenceContext
     private final EntityManager entityManager;
 
+    @Autowired
+    private DuplicatedNameValidator duplicatedNameValidator;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(duplicatedNameValidator);
+    }
+
     public CategoryController(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    @PostMapping
+    @PostMapping("/categories")
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@Valid @RequestBody NewCategoryRequest request) {

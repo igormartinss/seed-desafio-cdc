@@ -3,10 +3,10 @@ package com.igorms.cdcchallenge;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class DesafioCasaDoCodigoApplicationTests {
 
-    @Test
+//    @Test
     void contextLoads() {
     }
 

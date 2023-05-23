@@ -13,7 +13,7 @@ public class DuplicatedNameValidator implements Validator {
     private CategoryRepository categoryRepository;
     @Override
     public boolean supports(Class<?> clazz) {
-        return Category.class.isAssignableFrom(clazz);
+        return NewCategoryRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
