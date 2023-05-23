@@ -16,13 +16,6 @@ public class AuthorController {
 
     @PersistenceContext
     private final EntityManager entityManager;
-    @Autowired
-    private DuplicatedNameValidator duplicatedEmailValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(duplicatedEmailValidator);
-    }
 
     public AuthorController(EntityManager manager) {
         super();

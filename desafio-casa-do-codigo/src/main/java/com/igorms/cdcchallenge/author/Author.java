@@ -34,7 +34,6 @@ public class Author {
     @NotBlank
     @Email
     @Column(unique = true)
-
     private String email;
 
     @NotBlank

@@ -16,14 +16,6 @@ public class CategoryController {
     @PersistenceContext
     private final EntityManager entityManager;
 
-    @Autowired
-    private DuplicatedNameValidator duplicatedNameValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(duplicatedNameValidator);
-    }
-
     public CategoryController(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
