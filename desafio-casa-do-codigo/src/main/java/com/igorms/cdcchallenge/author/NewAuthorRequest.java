@@ -6,14 +6,14 @@ import javax.validation.constraints.Size;
 
 public class NewAuthorRequest {
 
-    @NotBlank
+    @NotBlank(message = "Name can't be blank")
     public final String name;
 
-    @NotBlank
+    @NotBlank(message = "Email can't be blank")
     @Email
     public final String email;
 
-    @NotBlank
+    @NotBlank(message = "Description can't be blank")
     @Size(max = 400, min = 0)
     public final String description;
 
@@ -21,5 +21,9 @@ public class NewAuthorRequest {
         this.name = name;
         this.email = email;
         this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
