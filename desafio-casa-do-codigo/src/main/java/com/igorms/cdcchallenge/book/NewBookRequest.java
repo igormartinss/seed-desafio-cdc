@@ -1,5 +1,8 @@
 package com.igorms.cdcchallenge.book;
 
+import com.igorms.cdcchallenge.author.Author;
+import com.igorms.cdcchallenge.category.Category;
+import com.igorms.cdcchallenge.shared.IdExists;
 import com.igorms.cdcchallenge.shared.UniqueValue;
 
 import javax.validation.constraints.*;
@@ -44,9 +47,11 @@ public class NewBookRequest {
     private LocalDate publishedDate;
 
     @NotNull
+    @IdExists(domainClass = Category.class)
     private Long categoryId;
 
     @NotNull
+    @IdExists(domainClass = Author.class)
     private Long authorId;
 
     public String getTitle() {
