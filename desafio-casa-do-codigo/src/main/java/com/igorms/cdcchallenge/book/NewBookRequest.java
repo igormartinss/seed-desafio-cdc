@@ -1,7 +1,5 @@
 package com.igorms.cdcchallenge.book;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igorms.cdcchallenge.shared.UniqueValue;
 
 import javax.validation.constraints.*;

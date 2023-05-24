@@ -1,14 +1,18 @@
 package com.igorms.cdcchallenge.category;
 
+import com.igorms.cdcchallenge.author.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class CategoryController {
@@ -25,5 +29,12 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@Valid @RequestBody NewCategoryRequest request) {
         entityManager.persist(Category.fromRequest(request));
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> find(){
+        Query query = entityManager.createQuery("select c from Category c");
+        List<Category> categories = query.getResultList();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
