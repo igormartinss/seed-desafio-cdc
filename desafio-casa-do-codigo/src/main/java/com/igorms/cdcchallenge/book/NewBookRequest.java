@@ -3,7 +3,6 @@ package com.igorms.cdcchallenge.book;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igorms.cdcchallenge.shared.UniqueValue;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 
 public class NewBookRequest {
 
-    public NewBookRequest(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, String categoryName, String authorName) {
+    public NewBookRequest(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, String categoryId, String authorId) {
         this.title = title;
         this.summary = summary;
         this.markDownSummary = markDownSummary;
@@ -19,8 +18,8 @@ public class NewBookRequest {
         this.numberOfPages = numberOfPages;
         this.isbn = isbn;
         this.publishedDate = publishedDate;
-        this.categoryName = categoryName;
-        this.authorName = authorName;
+        this.categoryId = categoryId;
+        this.authorId = authorId;
     }
 
     @NotBlank
@@ -48,10 +47,10 @@ public class NewBookRequest {
     private LocalDate publishedDate;
 
     @NotBlank
-    private String categoryName;
+    private String categoryId;
 
     @NotBlank
-    private String authorName;
+    private String authorId;
 
     public String getTitle() {
         return title;
@@ -85,11 +84,11 @@ public class NewBookRequest {
     }
 
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getCategoryId() {
+        return categoryId;
     }
 }

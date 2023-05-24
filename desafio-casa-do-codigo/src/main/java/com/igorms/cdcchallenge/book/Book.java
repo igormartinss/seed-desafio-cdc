@@ -2,6 +2,7 @@ package com.igorms.cdcchallenge.book;
 
 import com.igorms.cdcchallenge.author.Author;
 import com.igorms.cdcchallenge.category.Category;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,7 +27,13 @@ public class Book {
         this.author = author;
     }
 
-    public static Book fromRequest(NewBookRequest newBookRequest, Category category, Author author) {
+    public static Book fromRequest(NewBookRequest newBookRequest, EntityManager entityManager) {
+        Category category = entityManager.find(Category.class, newBookRequest.getCategoryId());
+        Author author = entityManager.find(Author.class, newBookRequest.getAuthorId());
+
+        Assert.state(category != null, "No category found for this ID: " + newBookRequest.getCategoryId());
+        Assert.state(author != null, "No category found for this ID: " + newBookRequest.getAuthorId());
+
         return new Book(
                 newBookRequest.getTitle(),
                 newBookRequest.getSummary(),
@@ -63,5 +70,21 @@ public class Book {
 
     @ManyToOne
     private Author author;
+
+    private Category getRequestCategory(String categoryName) {
+        Query categoryQuery = entityManager.createQuery("select c from Category c where name = :value");
+        categoryQuery.setParameter("value", categoryName);
+        Object categoryFound = categoryQuery.getSingleResult();
+        Assert.state(categoryFound != null, "No category found for this name: " + categoryName);
+        return (Category) categoryFound;
+    }
+
+    private Author getAuthorCategory(String authorName) {
+        Query authorQuery = entityManager.createQuery("select a from Author a where name =:value");
+        authorQuery.setParameter("value", authorName);
+        Object authorFound = authorQuery.getSingleResult();
+        Assert.state(authorFound != null, "No author found for this name: " + authorName);
+        return (Author) authorFound;
+    }
 
 }
