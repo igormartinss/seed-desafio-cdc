@@ -71,20 +71,4 @@ public class Book {
     @ManyToOne
     private Author author;
 
-    private Category getRequestCategory(String categoryName) {
-        Query categoryQuery = entityManager.createQuery("select c from Category c where name = :value");
-        categoryQuery.setParameter("value", categoryName);
-        Object categoryFound = categoryQuery.getSingleResult();
-        Assert.state(categoryFound != null, "No category found for this name: " + categoryName);
-        return (Category) categoryFound;
-    }
-
-    private Author getAuthorCategory(String authorName) {
-        Query authorQuery = entityManager.createQuery("select a from Author a where name =:value");
-        authorQuery.setParameter("value", authorName);
-        Object authorFound = authorQuery.getSingleResult();
-        Assert.state(authorFound != null, "No author found for this name: " + authorName);
-        return (Author) authorFound;
-    }
-
 }
