@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class NewBookRequest {
 
-    public NewBookRequest(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, String categoryId, String authorId) {
+    public NewBookRequest(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, Long categoryId, Long authorId) {
         this.title = title;
         this.summary = summary;
         this.markDownSummary = markDownSummary;
@@ -43,14 +43,13 @@ public class NewBookRequest {
     private String isbn;
 
     @Future
-    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate publishedDate;
 
-    @NotBlank
-    private String categoryId;
+    @NotNull
+    private Long categoryId;
 
-    @NotBlank
-    private String authorId;
+    @NotNull
+    private Long authorId;
 
     public String getTitle() {
         return title;
@@ -72,7 +71,7 @@ public class NewBookRequest {
         return numberOfPages;
     }
 
-    public String getLsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
@@ -80,15 +79,15 @@ public class NewBookRequest {
         return publishedDate;
     }
 
-    public NewBookRequest() {
+    public void setPublishedDate(LocalDate publishedDate) {
+        this.publishedDate = publishedDate;
     }
 
-
-    public String getAuthorId() {
+    public Long getAuthorId() {
         return authorId;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 }

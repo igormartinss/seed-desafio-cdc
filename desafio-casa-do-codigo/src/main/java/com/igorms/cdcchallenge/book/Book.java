@@ -40,7 +40,7 @@ public class Book {
                 newBookRequest.getMarkDownSummary(),
                 newBookRequest.getPrice(),
                 newBookRequest.getNumberOfPages(),
-                newBookRequest.getLsbn(),
+                newBookRequest.getIsbn(),
                 newBookRequest.getPublishedDate(),
                 category,
                 author
