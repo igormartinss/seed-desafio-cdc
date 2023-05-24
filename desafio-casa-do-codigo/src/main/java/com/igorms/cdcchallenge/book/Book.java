@@ -14,13 +14,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String lsbn, LocalDate publishedDate, Category category, Author author) {
+    public Book(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, Category category, Author author) {
         this.title = title;
         this.summary = summary;
         this.markDownSummary = markDownSummary;
         this.price = price;
         this.numberOfPages = numberOfPages;
-        this.lsbn = lsbn;
+        this.isbn = isbn;
         this.publishedDate = publishedDate;
         this.category = category;
         this.author = author;
@@ -54,7 +54,7 @@ public class Book {
 
     private Integer numberOfPages;
 
-    private String lsbn;
+    private String isbn;
 
     private LocalDate publishedDate;
 

@@ -1,6 +1,7 @@
 package com.igorms.cdcchallenge.book;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igorms.cdcchallenge.shared.UniqueValue;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -9,6 +10,18 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class NewBookRequest {
+
+    public NewBookRequest(String title, String summary, String markDownSummary, BigDecimal price, Integer numberOfPages, String isbn, LocalDate publishedDate, String categoryName, String authorName) {
+        this.title = title;
+        this.summary = summary;
+        this.markDownSummary = markDownSummary;
+        this.price = price;
+        this.numberOfPages = numberOfPages;
+        this.isbn = isbn;
+        this.publishedDate = publishedDate;
+        this.categoryName = categoryName;
+        this.authorName = authorName;
+    }
 
     @NotBlank
     @UniqueValue(domainClass = Book.class, fieldName = "title")
@@ -27,10 +40,11 @@ public class NewBookRequest {
     private Integer numberOfPages;
 
     @NotBlank
-    @UniqueValue(domainClass = Book.class, fieldName = "lsbn")
-    private String lsbn;
+    @UniqueValue(domainClass = Book.class, fieldName = "isbn")
+    private String isbn;
 
-    @FutureOrPresent
+    @Future
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate publishedDate;
 
     @NotBlank
@@ -60,7 +74,7 @@ public class NewBookRequest {
     }
 
     public String getLsbn() {
-        return lsbn;
+        return isbn;
     }
 
     public LocalDate getPublishedDate() {
