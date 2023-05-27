@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,9 +33,16 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<Category>> find(){
+    public ResponseEntity<List<CategoryResponse>> find(){
         Query query = entityManager.createQuery("select c from Category c");
+
         List<Category> categories = query.getResultList();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+        List<CategoryResponse> categoriesResponse = new ArrayList<>();
+
+        categories.forEach(category -> categoriesResponse.add(CategoryResponse.fromCategory(category)));
+
+        return new ResponseEntity<>(categoriesResponse, HttpStatus.OK);
     }
+
+
 }

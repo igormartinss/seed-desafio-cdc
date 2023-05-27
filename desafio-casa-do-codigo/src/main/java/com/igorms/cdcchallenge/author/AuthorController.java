@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,10 +33,15 @@ public class AuthorController {
     }
 
     @GetMapping("/authors")
-    public ResponseEntity<List<Author>> find(){
+    public ResponseEntity<List<AuthorResponse>> find(){
         Query query = entityManager.createQuery("select a from Author a");
+
         List<Author> authors = query.getResultList();
-        return new ResponseEntity<>(authors, HttpStatus.OK);
+        List<AuthorResponse> authorsResponse = new ArrayList<>();
+
+        authors.forEach(author -> authorsResponse.add(AuthorResponse.fromAuthor(author)));
+
+        return new ResponseEntity<>(authorsResponse, HttpStatus.OK);
     }
 }
 

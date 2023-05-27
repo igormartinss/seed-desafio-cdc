@@ -1,5 +1,7 @@
 package com.igorms.cdcchallenge.author;
 
+import com.igorms.cdcchallenge.shared.UniqueValue;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +35,6 @@ public class Author {
 
     @NotBlank
     @Email
-    @Column(unique = true)
     private String email;
 
     @NotBlank

@@ -71,4 +71,43 @@ public class Book {
     @ManyToOne
     private Author author;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getMarkDownSummary() {
+        return markDownSummary;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Integer getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
 }
