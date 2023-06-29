@@ -1,15 +1,16 @@
 package com.igorms.cdcchallenge.region;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class StateController {
@@ -27,5 +28,17 @@ public class StateController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid NewStateRequest newStateRequest) {
         entityManager.persist(State.fromRequest(newStateRequest, entityManager));
+    }
+
+    @GetMapping("state")
+    public ResponseEntity<List<StateResponse>> findStates() {
+        Query query = entityManager.createQuery("select s from State s");
+
+        List<State> states = query.getResultList();
+        List<StateResponse> statesResponse = new ArrayList<StateResponse>();
+
+        states.forEach(state -> statesResponse.add(StateResponse.fromEntity(state)));
+
+        return new ResponseEntity<>(statesResponse, HttpStatus.OK);
     }
 }

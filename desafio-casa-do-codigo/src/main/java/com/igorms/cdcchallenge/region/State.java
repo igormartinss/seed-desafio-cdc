@@ -31,6 +31,14 @@ public class State {
     @ManyToOne
     private Country country;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static State fromRequest(NewStateRequest newStateRequest, EntityManager entityManager) {
         Country country = Optional.ofNullable(entityManager.find(Country.class, newStateRequest.getCountryId()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
