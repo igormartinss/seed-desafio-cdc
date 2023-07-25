@@ -1,12 +1,10 @@
 package com.igorms.cdcchallenge.purchase;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.igorms.cdcchallenge.region.Country;
-import com.igorms.cdcchallenge.region.State;
-import org.hibernate.validator.constraints.br.CNPJ;
+import com.igorms.cdcchallenge.purchase.cart.CartRequest;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,6 +29,10 @@ public class PurchaseRequest {
 
     @NotBlank
     private String complement;
+
+    @NotNull
+    @Valid
+    private CartRequest cartRequest;
 
 
     @NotNull
@@ -85,5 +87,9 @@ public class PurchaseRequest {
 
     public Long getCep() {
         return cep;
+    }
+
+    public CartRequest getCartRequest() {
+        return cartRequest;
     }
 }

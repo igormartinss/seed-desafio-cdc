@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -20,6 +21,7 @@ public class PurchaseController {
     }
 
     @PostMapping("purchase")
+    @Transactional
     public void makePurchase(@Valid @RequestBody PurchaseRequest purchaseRequest) {
         entityManager.persist(Purchase.fromRequest(purchaseRequest, entityManager));
     }

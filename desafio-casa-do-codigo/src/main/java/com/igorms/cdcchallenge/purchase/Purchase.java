@@ -1,8 +1,9 @@
 package com.igorms.cdcchallenge.purchase;
 
+import com.igorms.cdcchallenge.purchase.cart.Cart;
+import com.igorms.cdcchallenge.purchase.cart.CartRequest;
 import com.igorms.cdcchallenge.region.Country;
 import com.igorms.cdcchallenge.region.State;
-import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.util.Assert;
 
@@ -10,12 +11,15 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.function.Function;
 
 @Entity
 public class Purchase {
 
     public Purchase(String email, String name, String surname, String document, String address,
-                    String complement, Country country, State state, String phone, Long cep) {
+                    String complement, Country country, State state, String phone, Long cep, CartRequest cartRequest, EntityManager entityManager) {
+
+        Function<Purchase, Cart> cartFunction = Cart.fromRequest(cartRequest, entityManager);
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -26,6 +30,7 @@ public class Purchase {
         this.state = state;
         this.phone = phone;
         this.cep = cep;
+        this.cart = cartFunction.apply(this);
     }
 
     @Id
@@ -43,7 +48,6 @@ public class Purchase {
     private String surname;
 
     @CPF
-    @CNPJ
     @NotBlank
     private String document;
 
@@ -66,10 +70,12 @@ public class Purchase {
     @NotNull
     private Long cep;
 
-    @Deprecated
-    public Purchase() {
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 
-    }
+    @Deprecated
+    public Purchase() {}
 
     public static Purchase fromRequest(PurchaseRequest purchaseRequest, EntityManager entityManager) {
         Country country = entityManager.find(Country.class, purchaseRequest.getCountryId());
@@ -88,7 +94,9 @@ public class Purchase {
                 country,
                 state,
                 purchaseRequest.getPhone(),
-                purchaseRequest.getCep()
+                purchaseRequest.getCep(),
+                purchaseRequest.getCartRequest(),
+                entityManager
         );
     }
 }
