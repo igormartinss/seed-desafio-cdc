@@ -32,7 +32,7 @@ public class PurchaseRequest {
 
     @NotNull
     @Valid
-    private CartRequest cartRequest;
+    private CartRequest cart;
 
 
     @NotNull
@@ -89,7 +89,7 @@ public class PurchaseRequest {
         return cep;
     }
 
-    public CartRequest getCartRequest() {
-        return cartRequest;
+    public CartRequest getCart() {
+        return cart;
     }
 }

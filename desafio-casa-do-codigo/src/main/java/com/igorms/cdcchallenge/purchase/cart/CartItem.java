@@ -31,4 +31,13 @@ public class CartItem {
         Assert.isTrue(book != null, "Livro não existe");
         return new CartItem(book, item.getQuantity());
     }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
 }
+

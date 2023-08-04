@@ -95,8 +95,9 @@ public class Purchase {
                 state,
                 purchaseRequest.getPhone(),
                 purchaseRequest.getCep(),
-                purchaseRequest.getCartRequest(),
+                purchaseRequest.getCart(),
                 entityManager
         );
     }
+
 }
