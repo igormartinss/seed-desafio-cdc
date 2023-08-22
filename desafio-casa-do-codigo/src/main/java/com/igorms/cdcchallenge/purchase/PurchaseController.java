@@ -1,8 +1,8 @@
 package com.igorms.cdcchallenge.purchase;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +24,15 @@ public class PurchaseController {
     @Transactional
     public void makePurchase(@Valid @RequestBody PurchaseRequest purchaseRequest) {
         entityManager.persist(Purchase.fromRequest(purchaseRequest, entityManager));
+    }
+
+    @GetMapping("purchase")
+    public ResponseEntity<PurchaseResponse> getPurchase(@RequestParam Long id) {
+        Purchase purchase = entityManager.find(Purchase.class, id);
+
+        PurchaseResponse purchaseResponse = PurchaseResponse.fromEntity(purchase);
+
+        return new ResponseEntity<>(purchaseResponse, HttpStatus.OK);
     }
 
 }

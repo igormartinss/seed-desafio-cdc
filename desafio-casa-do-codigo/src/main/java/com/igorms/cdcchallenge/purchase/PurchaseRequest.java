@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class PurchaseRequest {
     @Email
@@ -34,6 +35,7 @@ public class PurchaseRequest {
     @Valid
     private CartRequest cart;
 
+    private String coupon;
 
     @NotNull
     @JsonProperty("country_id")
@@ -92,4 +94,6 @@ public class PurchaseRequest {
     public CartRequest getCart() {
         return cart;
     }
+
+    public String getCoupon() { return coupon; }
 }

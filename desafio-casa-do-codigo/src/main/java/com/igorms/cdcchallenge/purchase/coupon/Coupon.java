@@ -1,7 +1,5 @@
 package com.igorms.cdcchallenge.purchase.coupon;
 
-import org.springframework.lang.Nullable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +12,9 @@ import java.time.LocalDate;
 @Entity
 public class Coupon {
 
-    public Coupon(String coupon, BigDecimal percentage, @Nullable Integer usageLimit, LocalDate expireAt) {
+    public Coupon(String coupon, BigDecimal percentage, LocalDate expireAt) {
         this.coupon = coupon;
         this.percentage = percentage;
-        this.usageLimit = usageLimit;
         this.expireAt = expireAt;
         this.createdAt = LocalDate.now();
     }
@@ -32,8 +29,6 @@ public class Coupon {
     @NotNull
     private BigDecimal percentage;
 
-    @Nullable
-    private Integer usageLimit;
 
     @NotNull
     private LocalDate expireAt;
@@ -52,11 +47,6 @@ public class Coupon {
         return percentage;
     }
 
-    @Nullable
-    public Integer getUsageLimit() {
-        return usageLimit;
-    }
-
     public LocalDate getExpireAt() {
         return expireAt;
     }
@@ -65,7 +55,6 @@ public class Coupon {
         return new Coupon(
                 couponRequest.getCoupon(),
                 couponRequest.getPercentage(),
-                couponRequest.getUsageLimit(),
                 couponRequest.getExpireAt()
         );
     }

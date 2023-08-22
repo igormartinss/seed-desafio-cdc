@@ -7,10 +7,9 @@ import java.time.LocalDate;
 
 public class CouponResponse {
 
-    public CouponResponse(String coupon, LocalDate expireAt, Integer usageLimit, BigDecimal percentage) {
+    public CouponResponse(String coupon, LocalDate expireAt, BigDecimal percentage) {
         this.coupon = coupon;
         this.expireAt = expireAt;
-        this.usageLimit = usageLimit;
         this.percentage = percentage;
     }
 
@@ -32,9 +31,6 @@ public class CouponResponse {
         return expireAt;
     }
 
-    public Integer getUsageLimit() {
-        return usageLimit;
-    }
 
     public BigDecimal getPercentage() {
         return percentage;
@@ -44,7 +40,6 @@ public class CouponResponse {
         return new CouponResponse(
                 coupon.getCoupon(),
                 coupon.getExpireAt(),
-                coupon.getUsageLimit(),
                 coupon.getPercentage()
         );
     }

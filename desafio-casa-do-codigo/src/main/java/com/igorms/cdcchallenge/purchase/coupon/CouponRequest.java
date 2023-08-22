@@ -1,11 +1,13 @@
 package com.igorms.cdcchallenge.purchase.coupon;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.igorms.cdcchallenge.shared.IdExists;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -15,11 +17,8 @@ public class CouponRequest {
     private String coupon;
 
     @NotNull
+    @Positive
     private BigDecimal percentage;
-
-    @Nullable
-    @JsonProperty("usage_limit")
-    private Integer usageLimit;
 
     @NotNull
     @JsonProperty("expire_at")
@@ -33,10 +32,6 @@ public class CouponRequest {
 
     public BigDecimal getPercentage() {
         return percentage;
-    }
-
-    public Integer getUsageLimit() {
-        return usageLimit;
     }
 
     public LocalDate getExpireAt() {
